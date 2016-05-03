@@ -5,6 +5,8 @@ mysql_root_db_pass: ''
 mysql_data_dir: /var/lib/mysql
 mysql_state: started
 mysql_enabled: 'yes'
+mysql_log_error: "/var/log/mysqld.log"
+mysql_pid_file: "/var/run/mariadb/mariadb.pid"
 
 mysql_configs:
 - { name: 'query_cache_limit', value: '16M'}

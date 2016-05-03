@@ -26,6 +26,9 @@
   notify:
    - restart mysql
 
+- name: touch mysql_log_error
+  file: path={{ mysql_log_error }} state=touch owner=mysql mode=0644
+
 - name: ensure mysql service has started/stopped
   service: name={{ mysql_service }} state={{ mysql_state }} enabled={{ mysql_enabled }}
 

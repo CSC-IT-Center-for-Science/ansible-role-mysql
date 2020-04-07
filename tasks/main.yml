@@ -78,14 +78,14 @@
 
 - name: ensure the hostname entry for master is available for the client
   lineinfile: dest=/etc/hosts regexp="{{ mysql_repl_master }}" line="{{ mysql_repl_master + '   ' +  hostvars[mysql_repl_master].ansible_default_ipv4.address }}" state=present
-  when: slave|failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
+  when: slave is failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
 
 - name: get the current master servers replication status
   mysql_replication: mode=getmaster
   delegate_to: "{{ mysql_repl_master }}"
   register: repl_stat
-  when: slave|failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
+  when: slave is failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
 
 - name: change the master in slave to start the replication
   mysql_replication: mode=changemaster master_host={{ mysql_repl_master }} master_log_file={{ repl_stat.File }} master_log_pos={{ repl_stat.Position }} master_user={{ mysql_repl_user[0].name }} master_password={{ mysql_repl_user[0].pass }}
-  when: slave|failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
+  when: slave is failed and mysql_repl_role == 'slave' and mysql_repl_master is defined

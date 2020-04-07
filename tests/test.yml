@@ -1,0 +1,8 @@
+---
+
+ - hosts: localhost
+   remote_user: root
+   roles:
+     - ansible-role-mysql
+#   pre_tasks:
+#     - debug: var=ansible_service_mgr
